@@ -8,9 +8,11 @@ class DropDownList extends StatelessWidget {
       required this.title,
       required this.content1,
       required this.content2,
-      this.arrow});
+      this.arrow,
+      this.count});
   final String title, content1, content2;
   final bool? arrow;
+  final int? count;
 
   @override
   Widget build(BuildContext context) {
@@ -42,33 +44,43 @@ class DropDownList extends StatelessWidget {
             height: 8.sp,
           ),
           Expanded(
+            child: Visibility(
+              visible: count != 1,
+              replacement: dropDownContainer(
+                content1,
+                194,
+                color: const Color(0xffC7C4C0),
+              ),
               child: Row(
-            children: [
-              dropDownContainer(content1),
-              SizedBox(
-                width: 8.w,
+                children: [
+                  dropDownContainer(content1, 124),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  Text(
+                    '〜',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  dropDownContainer(content2, 124),
+                ],
               ),
-              Text(
-                '〜',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              dropDownContainer(content2),
-            ],
-          ))
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget dropDownContainer(String content) {
+  Widget dropDownContainer(String content, int width,
+      {Color color = const Color(0xff454545)}) {
     return Container(
-      width: 124.w,
+      width: width.w,
       decoration: BoxDecoration(
         border: Border.all(
           color: const Color(0xffE8E8E8),
@@ -85,7 +97,7 @@ class DropDownList extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w400,
-              color: const Color(0xff454545),
+              color: color,
             ),
           ),
           Visibility(

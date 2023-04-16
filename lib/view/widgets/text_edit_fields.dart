@@ -7,8 +7,10 @@ class TextEditFields extends StatelessWidget {
     super.key,
     required this.title,
     required this.content,
+    this.size,
   });
   final String title, content;
+  final int? size;
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +55,15 @@ class TextEditFields extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 content,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: size == 15
+                    ? TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w400,
+                      )
+                    : TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
               ),
             ),
           )

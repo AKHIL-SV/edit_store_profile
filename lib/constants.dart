@@ -23,4 +23,7 @@ List images = [
   'assets/images/4.png',
   'assets/images/5.png',
   'assets/images/blank.png',
+  'assets/images/c.png',
+  'assets/images/g.png',
+  'assets/images/i.png',
 ];

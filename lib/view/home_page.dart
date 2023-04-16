@@ -1,4 +1,5 @@
 import 'package:edit_store_profile/constants.dart';
+import 'package:edit_store_profile/view/widgets/check_box_tile.dart';
 import 'package:edit_store_profile/view/widgets/drop_down_list.dart';
 import 'package:edit_store_profile/view/widgets/img_add_field.dart';
 import 'package:edit_store_profile/view/widgets/text_edit_fields.dart';
@@ -61,6 +62,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 20.h),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const TextEditFields(
                       title: '店舗名',
@@ -138,11 +140,79 @@ class HomePage extends StatelessWidget {
                       content2: '15 : 00',
                     ),
                     space,
+                    const CheckBoxTile(
+                      title: '',
+                      val1: '',
+                      val2: '',
+                      itemNo: 8,
+                    ),
+                    space,
+                    const DropDownList(
+                      title: '料理カテゴリー',
+                      content1: '料理カテゴリー選択',
+                      content2: '',
+                      count: 1,
+                    ),
+                    space,
                     const DropDownList(
                       title: '予算',
                       content1: '¥ 1,000',
                       content2: '¥ 2,000',
                       arrow: false,
+                    ),
+                    space,
+                    const TextEditFields(
+                      title: 'キャッチコピー',
+                      content: '美味しい！リーズナブルなオムライスランチ！',
+                      size: 15,
+                    ),
+                    space,
+                    const TextEditFields(
+                      title: '座席数',
+                      content: '40席',
+                    ),
+                    space,
+                    SizedBox(
+                      height: 289.sp,
+                      width: 292.sp,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const CheckBoxTile(
+                            title: '喫煙席',
+                            val1: '有',
+                            val2: '有',
+                          ),
+                          const CheckBoxTile(
+                            title: '喫煙席',
+                            val1: '有',
+                            val2: '有',
+                          ),
+                          const CheckBoxTile(
+                            title: '来店プレゼント',
+                            val1: '有（最大３枚まで）',
+                            val2: '無',
+                          ),
+                          SizedBox(
+                            height: 91.sp,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                imgContainer(images[8]),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                imgContainer(images[7]),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                imgContainer(images[6])
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     space,
                     const TextEditFields(
@@ -180,6 +250,33 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget imgContainer(String img) {
+    return Stack(
+      children: [
+        Container(
+          height: 91.sp,
+          width: 91.sp,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.r),
+            image: DecorationImage(
+              image: AssetImage(img),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Positioned(
+          right: 1.sp,
+          top: 1.sp,
+          child: Icon(
+            Icons.close,
+            color: const Color(0xffE7E7E7),
+            size: 25.sp,
+          ),
+        )
+      ],
     );
   }
 }
