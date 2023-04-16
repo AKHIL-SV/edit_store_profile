@@ -14,9 +14,9 @@ class HomePage extends StatelessWidget {
     Widget space = SizedBox(
       height: 16.sp,
     );
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -48,9 +48,38 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Icon(
-                      Icons.notifications_outlined,
-                      size: 25.sp,
+                    Stack(
+                      children: [
+                        Container(
+                          height: 32.sp,
+                          width: 32.sp,
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.notifications_outlined,
+                            size: 25.sp,
+                          ),
+                        ),
+                        Positioned(
+                          right: 0.sp,
+                          top: 0.sp,
+                          child: Container(
+                            height: 16.sp,
+                            width: 16.sp,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: orangeColor,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              '99+',
+                              style: TextStyle(
+                                  fontSize: 7.sp,
+                                  color: white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
