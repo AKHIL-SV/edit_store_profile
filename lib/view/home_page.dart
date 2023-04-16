@@ -249,7 +249,7 @@ class HomePage extends StatelessWidget {
                       content: 'いちごクリームアイスクリーム, ジュース',
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 40.sp,
                     ),
                     Container(
                       height: 46.sp,
