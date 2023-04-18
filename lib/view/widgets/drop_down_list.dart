@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constants.dart';
 
-class DropDownList extends StatelessWidget {
+class DropDownList extends StatefulWidget {
   const DropDownList(
       {super.key,
       required this.title,
@@ -15,6 +15,12 @@ class DropDownList extends StatelessWidget {
   final int? count;
 
   @override
+  State<DropDownList> createState() => _DropDownListState();
+}
+
+class _DropDownListState extends State<DropDownList> {
+  String? value1, value2;
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 64.sp,
@@ -24,7 +30,7 @@ class DropDownList extends StatelessWidget {
           Row(
             children: [
               Text(
-                title,
+                widget.title,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
@@ -45,15 +51,16 @@ class DropDownList extends StatelessWidget {
           ),
           Expanded(
             child: Visibility(
-              visible: count != 1,
+              visible: widget.count != 1,
               replacement: dropDownContainer(
-                content1,
+                widget.content1,
                 194,
+                1,
                 color: const Color(0xffC7C4C0),
               ),
               child: Row(
                 children: [
-                  dropDownContainer(content1, 124),
+                  dropDownContainer(widget.content1, 124, 1),
                   SizedBox(
                     width: 8.w,
                   ),
@@ -67,7 +74,7 @@ class DropDownList extends StatelessWidget {
                   SizedBox(
                     width: 8.w,
                   ),
-                  dropDownContainer(content2, 124),
+                  dropDownContainer(widget.content2, 124, 2),
                 ],
               ),
             ),
@@ -77,7 +84,7 @@ class DropDownList extends StatelessWidget {
     );
   }
 
-  Widget dropDownContainer(String content, int width,
+  Widget dropDownContainer(String content, int width, int id,
       {Color color = const Color(0xff454545)}) {
     return Container(
       width: width.w,
@@ -87,29 +94,70 @@ class DropDownList extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(5.r),
       ),
-      padding: EdgeInsets.only(left: 10.w, right: 10.w),
-      alignment: Alignment.centerLeft,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            content,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w400,
-              color: color,
+      padding: widget.count != 1
+          ? EdgeInsets.only(left: 20.w, right: 20.w)
+          : EdgeInsets.only(left: 8.w, right: 8.w),
+      child: widget.arrow != false
+          ? DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: id == 1 ? value1 : value2,
+                isExpanded: true,
+                hint: Text(
+                  content,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
+                ),
+                items: widget.count == 1
+                    ? dropdownnames.map(buildMenuItems).toList()
+                    : dropdownitems.map(buildMenuItems).toList(),
+                onChanged: (value) =>
+                    setState(() => id == 1 ? value1 = value : value2 = value),
+                icon: Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 26.sp,
+                  color: const Color(0xffC7C4C0),
+                ),
+              ),
+            )
+          : TextFormField(
+              initialValue: content,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+              cursorColor: orangeColor,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                  ),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
+                contentPadding: EdgeInsets.fromLTRB(10.w, 7.sp, 0, 7.sp),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                  ),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
+              ),
             ),
-          ),
-          Visibility(
-            visible: arrow != false,
-            child: Icon(
-              Icons.keyboard_arrow_down,
-              size: 26.sp,
-              color: const Color(0xffC7C4C0),
-            ),
-          )
-        ],
-      ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItems(String items) => DropdownMenuItem(
+        value: items,
+        child: Text(
+          items,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xff454545),
+          ),
+        ),
+      );
 }
