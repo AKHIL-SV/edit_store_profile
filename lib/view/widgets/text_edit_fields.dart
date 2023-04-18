@@ -43,27 +43,32 @@ class TextEditFields extends StatelessWidget {
             width: double.infinity,
           ),
           Expanded(
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xffE8E8E8),
+            child: TextFormField(
+              initialValue: content,
+              style: size == 15
+                  ? TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black87)
+                  : TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+              cursorColor: orangeColor,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: orangeColor,
+                  ),
+                  borderRadius: BorderRadius.circular(5.r),
                 ),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              padding: EdgeInsets.only(left: 10.w),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                content,
-                style: size == 15
-                    ? TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w400,
-                      )
-                    : TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
+                contentPadding: EdgeInsets.fromLTRB(10.w, 7.sp, 0, 7.sp),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Color(0xffE8E8E8),
+                  ),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
               ),
             ),
           )
