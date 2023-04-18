@@ -1,17 +1,21 @@
+import 'package:edit_store_profile/controller/getx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../constants.dart';
 
 class CheckBoxTile extends StatelessWidget {
-  const CheckBoxTile({
+  CheckBoxTile({
     super.key,
     required this.title,
     required this.val1,
     required this.val2,
     this.itemNo,
+    this.buttonId,
   });
   final String title, val1, val2;
-  final int? itemNo;
+  final int? itemNo, buttonId;
+  final controller = Get.put(CheckController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +53,19 @@ class CheckBoxTile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      checkBoxField(false, '月'),
+                      checkBoxField('月', 0),
                       SizedBox(
                         width: 24.sp,
                       ),
-                      checkBoxField(false, '火'),
+                      checkBoxField('火', 1),
                       SizedBox(
                         width: 24.sp,
                       ),
-                      checkBoxField(false, '水'),
+                      checkBoxField('水', 2),
                       SizedBox(
                         width: 24.sp,
                       ),
-                      checkBoxField(false, '木')
+                      checkBoxField('木', 3)
                     ],
                   ),
                   SizedBox(
@@ -69,19 +73,19 @@ class CheckBoxTile extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      checkBoxField(false, '金'),
+                      checkBoxField('金', 4),
                       SizedBox(
                         width: 24.sp,
                       ),
-                      checkBoxField(true, '土'),
+                      checkBoxField('土', 5),
                       SizedBox(
                         width: 24.sp,
                       ),
-                      checkBoxField(true, '日'),
+                      checkBoxField('日', 6),
                       SizedBox(
                         width: 24.sp,
                       ),
-                      checkBoxField(true, '祝')
+                      checkBoxField('祝', 7)
                     ],
                   ),
                 ],
@@ -120,11 +124,11 @@ class CheckBoxTile extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  checkBoxField(true, val1),
+                  checkBoxField(val1, 8*buttonId!),
                   SizedBox(
                     width: 32.sp,
                   ),
-                  checkBoxField(false, val2)
+                  checkBoxField(val2, 9*buttonId!)
                 ],
               ),
             )
@@ -134,23 +138,32 @@ class CheckBoxTile extends StatelessWidget {
     );
   }
 
-  Widget checkBoxField(bool orangeBox, String value) {
+  Widget checkBoxField(String value, int id) {
     return SizedBox(
       height: 24.sp,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          orangeBox
-              ? Icon(
-                  Icons.check_box,
-                  size: 18.sp,
-                  color: orangeColor,
-                )
-              : Icon(
-                  Icons.check_box_outline_blank,
-                  size: 18.sp,
-                  color: const Color(0xffE8E8E8),
-                ),
+          SizedBox(
+            width: 18.sp,
+            height: 18.sp,
+            child: Transform.scale(
+                scale: 0.8.sp,
+                child: Obx(
+                  () => Checkbox(
+                    splashRadius: 0,
+                    value: controller.isCheckList(id),
+                    onChanged: (value) {
+                      if (controller.isCheckList(id)) {
+                        controller.removeFromCheckList(id);
+                      } else {
+                        controller.addToCheckList(id);
+                      }
+                    },
+                    activeColor: orangeColor,
+                  ),
+                )),
+          ),
           SizedBox(
             width: 8.sp,
           ),

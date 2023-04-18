@@ -169,11 +169,12 @@ class HomePage extends StatelessWidget {
                       content2: '15 : 00',
                     ),
                     space,
-                    const CheckBoxTile(
+                    CheckBoxTile(
                       title: '',
                       val1: '',
                       val2: '',
                       itemNo: 8,
+                      buttonId: 0,
                     ),
                     space,
                     const DropDownList(
@@ -208,20 +209,23 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CheckBoxTile(
+                          CheckBoxTile(
                             title: '喫煙席',
                             val1: '有',
                             val2: '有',
+                            buttonId: 1,
                           ),
-                          const CheckBoxTile(
+                          CheckBoxTile(
                             title: '喫煙席',
                             val1: '有',
                             val2: '有',
+                            buttonId: 2,
                           ),
-                          const CheckBoxTile(
+                          CheckBoxTile(
                             title: '来店プレゼント',
                             val1: '有（最大３枚まで）',
                             val2: '無',
+                            buttonId: 3,
                           ),
                           SizedBox(
                             height: 91.sp,
